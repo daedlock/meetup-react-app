@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './DummyComponent.css';
-import fetch from 'isomorphic-fetch';
+import fetch from 'isomorphic-fetch-2';
 const initialState = {
   quote: {
   }
