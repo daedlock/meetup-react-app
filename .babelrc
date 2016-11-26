@@ -1,0 +1,14 @@
+{
+   "plugins": [
+    "transform-react-jsx",
+    "syntax-decorators",
+    "syntax-async-functions",
+    "transform-async-to-generator",
+    "react-hot-loader/babel",
+    ["babel-root-import",{"rootPathSuffix": "src"}]
+],
+   "presets": ["es2015"],
+   "ignore": [
+    "node_modules/*"
+  ]
+}

@@ -1,0 +1,17 @@
+language: node_js
+node_js: 5.3.0
+install: npm install
+# Integration Build Steps
+script:
+  - npm run build
+  - npm run eslint
+notifications:
+  email:
+    - hossam.saraya@gmail.com
+deploy:
+  provider: heroku
+  api_key: de975ca2-4d42-44b7-bbdf-4eabbf1f4e6e
+  skip_cleanup: true
+  app:
+    master: meetup-react-app
+    staging: staging-meetup-react-app
