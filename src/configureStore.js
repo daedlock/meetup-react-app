@@ -8,17 +8,17 @@ const rootReducer = combineReducers({
   routing: routerReducer
 });
 
-
 const loggerMiddleware = createLogger();
 
 export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState, compose(
-        applyMiddleware(
-            thunkMiddleware,
-            loggerMiddleware
-        ),
-        window.devToolsExtension ? window.devToolsExtension() : f => f //eslint-disable-line
-    ));
+  const store = createStore(
+    rootReducer,
+    initialState,
+    compose(
+      applyMiddleware(thunkMiddleware, loggerMiddleware),
+      window.devToolsExtension ? window.devToolsExtension() : f => f //eslint-disable-line
+    )
+  );
 
   return store;
 }
