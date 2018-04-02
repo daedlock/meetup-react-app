@@ -11,13 +11,6 @@ const rootReducer = combineReducers({
 
 const loggerMiddleware = createLogger();
 
-
-    /**
-     * Configure and returns store
-     *
-     * @param {object} initialState the initial state
-     * @returns {object} store
-     */
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
         applyMiddleware(
