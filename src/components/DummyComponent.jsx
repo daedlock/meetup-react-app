@@ -2,8 +2,7 @@ import React from 'react';
 import styles from './DummyComponent.css';
 import fetch from 'isomorphic-fetch';
 const initialState = {
-  quote: {
-  }
+  quote: {}
 };
 
 class DummyComponent extends React.Component {
@@ -16,56 +15,57 @@ class DummyComponent extends React.Component {
   render() {
     return (
       <div className={styles.body}>
-      <div className={styles.container}>
-      <div className={styles.logo}>
-      QuotePedia
-      <small className={styles.slogan}>Some Random Stuff</small>
-      </div>
+        <div className={styles.container}>
+          <div className={styles.logo}>
+            QuotePedia
+            <small className={styles.slogan}>Some Random Stuff</small>
+          </div>
 
-      <div className={styles.quoteContainer}>
-      {this.renderQuote()}
+          <div className={styles.quoteContainer}>{this.renderQuote()}</div>
+          <div className={styles.button} onClick={this.onClick.bind(this)}>
+            GET A NEW QUOTE
+          </div>
+        </div>
       </div>
-      <div className={styles.button} onClick={this.onClick.bind(this)}>
-      GET A NEW QUOTE
-      </div>
-      </div>
-      </div>
-      );
+    );
   }
 
   renderQuote() {
     if (this.state.quote.quoteText) {
       return (
         <div>
-        <div className={styles.content}>
-        {this.state.quote.quoteText}
+          <div className={styles.content}>{this.state.quote.quoteText}</div>
+          <div className={styles.author}>{this.state.quote.quoteAuthor}</div>
         </div>
-        <div className={styles.author}>{this.state.quote.quoteAuthor}</div>
-        </div>
-        );
+      );
     }
     return <div>Loading...</div>;
   }
 
   getRandomQuote() {
     this.setState(initialState);
-    return fetch(`https://crossorigin.me/http://api.forismatic.com/api/1.0/getQuote?method=getQuote&format=json&lang=en&key=${Math.round(Math.random() * 1000)}`, {
-      method: 'POST'
-    })
-    .then((res) => res.json())
-    .then((quote) => {
-      this.setState({
-        quote
+    return fetch(
+      `https://crossorigin.me/http://api.forismatic.com/api/1.0/getQuote?method=getQuote&format=json&lang=en&key=${Math.round(
+        Math.random() * 1000
+      )}`,
+      {
+        method: 'POST'
+      }
+    )
+      .then(res => res.json())
+      .then(quote => {
+        this.setState({
+          quote
+        });
+      })
+      .catch(() => {
+        this.setState({
+          quote: {
+            quoteText: 'Received a Quote with bad Chars',
+            quoteAuthor: 'JSON Parser'
+          }
+        });
       });
-    })
-    .catch(() => {
-      this.setState({
-        quote: {
-          quoteText: 'Received a Quote with bad Chars',
-          quoteAuthor: 'JSON Parser'
-        }
-      });
-    });
   }
 
   onClick() {
